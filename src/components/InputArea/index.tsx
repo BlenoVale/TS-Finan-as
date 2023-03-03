@@ -15,12 +15,11 @@ export const InputArea = ({ onAdd, setMessage }: Props) => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(value);
         let errorMessage = '';
         let errorList = [];
         if (date == '') {
             errorMessage += 'Campo Data está inválida\n'
-            errorList.push('- Campo Data está inválida');
+            errorList.push('- Campo Data está inválido');
         }
         if (category == '' || category == 'Selecione uma opção') {
             errorMessage += 'Escolha uma Categoria\n'
@@ -56,11 +55,18 @@ export const InputArea = ({ onAdd, setMessage }: Props) => {
         <C.Container onSubmit={handleSubmit}>
             <C.InputArea>
                 <C.Label>Data</C.Label>
-                <C.Input type='date' value={date} onChange={e => setDate(e.target.value)} />
+                <C.Input
+                    type='date'
+                    value={date}
+                    onChange={e => setDate(e.target.value)}
+                />
             </C.InputArea>
             <C.InputArea>
                 <C.Label>Categoria</C.Label>
-                <C.Selected value={category} onChange={e => setCategory(e.target.value)}>
+                <C.Selected
+                    value={category}
+                    onChange={e => setCategory(e.target.value)}
+                >
                     <C.Option value={''}>Selecione uma opção</C.Option>
                     {categoryList.map((item, index) => (
                         <C.Option key={index} value={item.category}>{item.PTcategory}</C.Option>
@@ -69,11 +75,19 @@ export const InputArea = ({ onAdd, setMessage }: Props) => {
             </C.InputArea>
             <C.InputArea>
                 <C.Label>Título</C.Label>
-                <C.Input type='text' value={title} onChange={e => setTitle(e.target.value)} />
+                <C.Input
+                    type='text'
+                    value={title}
+                    onChange={e => setTitle(e.target.value)}
+                />
             </C.InputArea>
             <C.InputArea>
                 <C.Label>Valor</C.Label>
-                <C.Input type='number' value={value} onChange={e => setValue(parseInt(e.target.value))} />
+                <C.Input
+                    type='number'
+                    value={value}
+                    onChange={e => setValue(parseInt(e.target.value))}
+                />
             </C.InputArea>
             <C.InputArea>
                 <C.Label></C.Label>

@@ -14,3 +14,15 @@ export const TableHeadColumn = styled.th<{ width?: number }>`
     padding: 10px 0;
     text-align: left;
 `;
+
+export const EmptyTable = styled.div`
+    width: inherit;
+    margin: 30px 200px;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
+    background-color: #e8b8b9;
+    border-radius: 40px;
+    border: 2px dashed #f74f57;
+`;

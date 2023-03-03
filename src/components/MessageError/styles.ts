@@ -2,22 +2,32 @@ import styled from "styled-components";
 
 export const Container = styled.div`
     position: absolute;
+    right: 15px;
     bottom: 15px;
     z-index: 99;
-    width: 100vw;
     overflow: hidden;
 `;
 
-export const MessageArea = styled.div<{showErro:boolean}>`
-    width: 500px;
-    height: 300px;
+export const MessageArea = styled.div<{ showErro: boolean }>`
+    width: ${props => props.showErro === true ? '500px' : '0'};
+    height: 220px;
     background-color: #e8b8b9;
-    margin-left: ${props => props.showErro === true ? 'calc(100vw - 515px)' : 'calc(100vw - 0px)'};
-    margin-right: 15px;
     border-top-left-radius: 10px;
-    padding: 15px;
+    padding: ${props => props.showErro === true ? '15px' : '0'};
     transition: all ease .4s;
-    opacity: .6;
+`;
+
+export const CloseArea = styled.div<{ showErro: boolean }>`
+    display: ${props => props.showErro === true ? 'flex' : 'none'};
+    align-items: center;
+    padding-bottom: 20px;
+    gap: 15px;
+    opacity: 1;
+`;
+
+export const CloseTitle = styled.div`
+    font-size: 23px;
+    font-weight: bold;
 `;
 
 export const Close = styled.div`
@@ -25,14 +35,15 @@ export const Close = styled.div`
     cursor: pointer;
     transition: all ease .7s;
     border-radius: 50%;
-    padding-bottom: 20px;
 
     &:hover {
         opacity: .6;
     }
 `;
 
-export const Message = styled.div`
+export const Message = styled.div<{ showErro: boolean }>`
+    display: ${props => props.showErro === true ? 'block' : 'none'};
     margin-left: 10px;
     font-size: 18px;
+    opacity: 1;
 `;
