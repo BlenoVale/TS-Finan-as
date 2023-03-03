@@ -1,12 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as C from './styles';
 import { categoryList } from '../../data/categories';
 import { Item } from '../../types/Item';
 
 type Props = {
     onAdd: (item: Item) => void;
+    setMessage: (message: string[]) => void;
 }
-export const InputArea = ({ onAdd }: Props) => {
+export const InputArea = ({ onAdd, setMessage }: Props) => {
     const [date, setDate] = useState('');
     const [category, setCategory] = useState('');
     const [title, setTitle] = useState('');
@@ -14,34 +15,40 @@ export const InputArea = ({ onAdd }: Props) => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(category);
+        console.log(value);
         let errorMessage = '';
+        let errorList = [];
         if (date == '') {
             errorMessage += 'Campo Data está inválida\n'
+            errorList.push('- Campo Data está inválida');
         }
         if (category == '' || category == 'Selecione uma opção') {
             errorMessage += 'Escolha uma Categoria\n'
+            errorList.push('- Escolha uma Categoria');
         }
         if (title == '') {
             errorMessage += 'Campo Título não está preenchido\n';
+            errorList.push('- Campo Título não está preenchido');
         }
-        if (value <= 0) {
+        if (value <= 0 || isNaN(value)) {
             errorMessage += 'Campo Valor não está preenchido ou está inválido\n';
+            errorList.push('- Campo Valor não está preenchido ou está inválido');
         }
 
         if (errorMessage != '') {
-            alert(errorMessage);
+            //alert(errorMessage);
+            setMessage(errorList);
         } else {
             let [year, month, day] = date.split('-');
+            console.log(year, month, day);
 
             let newItem: Item = {
-                date: new Date(parseInt(year), parseInt(month), parseInt(day)),
+                date: new Date(parseInt(year), parseInt(month) - 1, parseInt(day)),
                 category: category,
                 title: title,
                 value: value
             }
             onAdd(newItem);
-            console.log('passou aqui');
         }
     }
 

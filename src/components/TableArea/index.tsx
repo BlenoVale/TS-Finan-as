@@ -5,8 +5,10 @@ import { TableItem } from '../TableItem';
 
 type Props = {
     list: Item[];
+    filteredList: Item[];
+    setList: (list: Item[]) => void;
 }
-export const TableArea = ({ list }: Props) => {
+export const TableArea = ({list, filteredList, setList }: Props) => {
     return (
         <C.Table>
             <thead>
@@ -19,8 +21,8 @@ export const TableArea = ({ list }: Props) => {
                 </tr>
             </thead>
             <tbody>
-                {list.map((item, index)=>(
-                    <TableItem key={index} item={item}/>
+                {filteredList.map((item, index) => (
+                    <TableItem key={index} item={item} list={list} setList={setList} />
                 ))}
             </tbody>
         </C.Table>

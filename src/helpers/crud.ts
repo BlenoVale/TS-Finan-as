@@ -1,8 +1,12 @@
 import { Item } from "../types/Item";
 
 export const removeItem = (list: Item[], item: Item) => {
-    list.forEach((i, index) => {
-        if (i === item) list.splice(index, 1);
+    let newList: Item[] = [...list];
+    newList.forEach((i, index) => {
+        console.log(i);
+        console.log(item);
+        if (i === item) newList.splice(index, 1);
     });
-    console.log(list);
+    console.log(newList);
+    return newList;
 }

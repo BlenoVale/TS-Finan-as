@@ -7,6 +7,7 @@ import * as df from './helpers/date.filter';
 import { TableArea } from './components/TableArea';
 import { InfoArea } from './components/InfoArea';
 import { InputArea } from './components/InputArea';
+import { MessageError } from './components/MessageError';
 
 const App = () => {
   const [list, setList] = useState(items);
@@ -14,10 +15,18 @@ const App = () => {
   const [currentMonth, setCurrentMonth] = useState(df.getCurrentMonth());
   const [income, setIncome] = useState(0);
   const [expense, setExpense] = useState(0);
+  const [message, setMessage] = useState<string[]>([]);
+  const [showErro, setShowErro] = useState(false);
 
   useEffect(() => {
     setFilteredList(df.filterListByMonth(list, currentMonth));
   }, [list, currentMonth]);
+
+  useEffect(() => {
+    if(message.length > 0){
+      setShowErro(true);
+    }
+  }, [message]);
 
   useEffect(() => {
     let incomeAux = 0;
@@ -43,7 +52,10 @@ const App = () => {
     let newList = [...list];
     newList.push(item);
     setList(newList);
-    console.log('aqui também');
+  }
+
+  const closeErro = () => {
+    setShowErro(false);
   }
 
   return (
@@ -59,9 +71,16 @@ const App = () => {
           income={income}
           expense={expense}
         />
-        <InputArea onAdd={handleAddItem} />
-        <TableArea list={filteredList} />
-      </C.Body> 
+        <InputArea onAdd={handleAddItem} setMessage={setMessage} />
+        <TableArea list={list} filteredList={filteredList} setList={setList} />
+      </C.Body>
+
+      <MessageError
+        message={message}
+        setMessage={setMessage}
+        showErro={showErro}
+        closeErro={closeErro}
+      />
     </C.Container>
   );
 }

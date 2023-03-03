@@ -7,11 +7,14 @@ import { removeItem } from '../../helpers/crud';
 
 type Props = {
     item: Item;
+    list: Item[];
+    setList: (list: Item[]) => void;
 }
-export const TableItem = ({ item }: Props) => {
+export const TableItem = ({ item, list, setList }: Props) => {
 
     const handleDeleteItem = () => {
-        //removeItem(list, item);
+        let newlist = removeItem(list, item);
+        setList(newlist);
     }
 
     return (
